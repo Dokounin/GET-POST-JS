@@ -19,7 +19,7 @@ function sendRequest(method, url, body = null) {
         resolve(xhr.response);
       }
     };
-
+    
     // function pour voir de error
     xhr.onerror = () => {
       console.log(xhr.response);
