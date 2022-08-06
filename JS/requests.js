@@ -18,14 +18,13 @@ var readArticles = function () {
     })
     .then((responseJSON) => {
       responseJSON["hydra:member"].forEach((article) => {
-        articleOption = document.createElement("option");
+        let articleOption = document.createElement("option");
         articleOption.innerHTML = article["title"];
         articleOption.value = article["id"];
         articleOption.id = "option-" + article["id"];
         selectArticle.appendChild(articleOption);
       });
     });
-
 };
 
 document.addEventListener("DOMContentLoaded", readArticles);
@@ -68,7 +67,7 @@ createButton.addEventListener("click", createArticle);
 const updateButton = document.querySelector("#btnUpdate");
 const articleName = document.querySelector("#articleName");
 
-let requestUpdate = `https://127.0.0.1:8000/api/articles/`;
+let requestUpdate = "https://127.0.0.1:8000/api/articles/";
 
 const updateArticle = function (event) {
   const headers = {
@@ -77,10 +76,11 @@ const updateArticle = function (event) {
   const requestBody = {
     title: articleName.value,
   };
-  fetch(requestUpdate, {
+  fetch(requestUpdate + selectArticle.value, {
     method: "PUT",
     headers: headers,
     body: JSON.stringify(requestBody),
+    
   })
     .then(function (response) {
       return response.json();
